@@ -9,7 +9,7 @@
 {#if inputType==='json'||inputType===''}
 <Input errorMessage={importData.data.errorMessage} value="" label="file" inputType="input" dataType="file" onchangeInput={e=> onchangeHandler(e,'json')}/>
 {:else}
-<Input errorMessage={importData.data.errorMessage} value="" label="array" inputType="textarea" onchangeText={e=> onchangeHandler(e,'array')}/>
+<Input errorMessage={importData.data.errorMessage} value="" label="array or object" inputType="textarea" onchangeText={e=> onchangeHandler(e,'array')}/>
 {/if}
 
 {#if Array.isArray(importData.data.value)&& importData.data.value.length}

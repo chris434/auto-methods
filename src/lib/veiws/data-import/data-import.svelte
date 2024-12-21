@@ -12,7 +12,7 @@
 </script>
 {#snippet tabs()}
     <TabsTrigger disabled={importData.data.inputType==='array'} value="json">json file</TabsTrigger>
-    <TabsTrigger disabled={importData.data.inputType==='json'}  value="array">js array</TabsTrigger>
+    <TabsTrigger disabled={importData.data.inputType==='json'}  value="array">js array or object</TabsTrigger>
 {/snippet}
 
 {#snippet content()}
