@@ -12,29 +12,20 @@ export function onchangeHandler(e:onChange,inputType:InputType){
 if(!currentTarget.value) return setImportData({})
     if(currentTarget.files?.length){
    fileReader(currentTarget.files[0]).then((fileValue =>{
-      const {value,errorMessage}= isJson<[]|object>(fileValue as string)
-
-      if(!value||errorMessage) return setImportData({errorMessage})
-    
-     if(!Array.isArray(value)){
-       const arrays= findJsonArrays(value)
-      return setImportData({value: arrays,inputType})
-     }
-     setImportData({value:[['root',value]],inputType})
+      const returnValue= isJson<[]|object>(fileValue as string)
+      handler(returnValue,inputType)
    }))
    return
   }
   const FIXED_ERROR_MESSAGE='Invalid array or object'
   const returnValue = convertToJs(currentTarget.value,FIXED_ERROR_MESSAGE)
   const {value}=returnValue
-  console.log(returnValue.value)
   if(typeof value !=='object'&&!Array.isArray(value)) return setImportData({errorMessage: FIXED_ERROR_MESSAGE})
   handler(returnValue,inputType)
 }
 
 function handler({value,errorMessage}:{value:any,errorMessage:string},inputType:InputType){
   if(!value||errorMessage) return setImportData({errorMessage})
-    console.log(value)
   if(!Array.isArray(value)){
     const arrays= findJsonArrays(value as object)
     setImportData({value: arrays,inputType})
