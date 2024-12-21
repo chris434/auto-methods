@@ -1,15 +1,17 @@
+import { isJson } from "$lib/utitls/json/json"
 import { INIT_ARRAY_DATA } from "./data"
 import type { ArrayDataType, InputType } from "./types"
 
 function createArrayData(){
     let data=$state<ArrayDataType>(INIT_ARRAY_DATA)
 
-   function setInput(inputType:InputType,value:unknown){
+   function setInput(inputType:InputType,value:string){
    if(!value){
      data.inputType=''
      data.inputValue=[]
     return
    }
+  isJson(value)
    data.inputType=inputType
  }
 
