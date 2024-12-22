@@ -1,3 +1,5 @@
+import { typeofValue } from "$lib/utitls/typeof/typeof"
+
 export function findJsonArrays(data:object ){
 const arrays:[string,unknown[]][]=[]
 function find(data:object,path:string){
@@ -6,7 +8,7 @@ function find(data:object,path:string){
         const currentPath=`${path}/${key}`
        
         if(Array.isArray(value)) arrays.push([currentPath,value])
-         if(typeof value==='object')return find(value as object,currentPath)
+         if(typeofValue(value)==='object')return find(value as object,currentPath)
 
         
      })
