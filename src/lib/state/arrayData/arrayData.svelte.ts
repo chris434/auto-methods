@@ -1,24 +1,11 @@
-import { isJson } from "$lib/utitls/json/json"
-import { INIT_ARRAY_DATA } from "./data"
-import type { ArrayDataType, InputType } from "./types"
+import { INIT_ARRAY_DATA } from "./data.js"
+import type { ArrayDataType, InputValue} from "./types.ts"
 
-function createArrayData(){
-    let data=$state<ArrayDataType>(INIT_ARRAY_DATA)
-
-   function setInput(inputType:InputType,value:string){
-   if(!value){
-     data.inputType=''
-     data.inputValue=[]
-    return
-   }
-  isJson(value)
-   data.inputType=inputType
- }
-
-    return {
-        data,
-        setInput
+class ArrayData{
+     data=$state<ArrayDataType>(INIT_ARRAY_DATA)
+    setInputValue=(value:InputValue )=>{
+        this.data={...this.data,inputValue:value}
     }
 }
 
-export let arrayData=createArrayData()
+export let arrayData=new ArrayData()
