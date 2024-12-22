@@ -5,10 +5,6 @@
 	import InputImport from "./inputImport/inputImport.svelte";
 	import { importData } from "./state/importData/importData.svelte";
  let{data}= importData
-
- $effect(()=>{
-    console.log(data)
- })
 </script>
 {#snippet tabs()}
     <TabsTrigger disabled={importData.data.inputType==='array'} value="json">json file</TabsTrigger>

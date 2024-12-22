@@ -1,5 +1,5 @@
 export function findJsonArrays(data:object ){
-const arrays:[string,unknown][]=[]
+const arrays:[string,unknown[]][]=[]
 function find(data:object,path:string){
     Object.entries(data).forEach((entry) =>{
         const [key,value]=entry

@@ -2,8 +2,8 @@ import type { onChange } from "$lib/types/events/types";
 import type { InputType } from "$lib/state/arrayData/types";
 import { fileReader } from "$lib/utitls/fileReader/fileReader";
 import { isJson } from "$lib/utitls/json/json";
-import { importData } from "../state/importData/importData.svelte";
-import { findJsonArrays } from "./utils/findJsonArrays/findJsonArrays";
+import { importData } from "../../state/importData/importData.svelte";
+import { findJsonArrays } from "../utils/findJsonArrays/findJsonArrays";
 import { convertToJs } from "$lib/utitls/js/js";
 
 let {setImportData}=importData

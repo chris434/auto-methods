@@ -1,10 +1,19 @@
 <script lang="ts">
 	import Input from "$lib/components/custom/input/input.svelte";
 	import Select from "$lib/components/custom/select/select.svelte";
+	import Button from "$lib/components/ui/button/button.svelte";
 	import { importData } from "../state/importData/importData.svelte";
-	import { onchangeHandler } from "./helper";
-	import type { Props } from "./type";
+	import { importDataHandler } from "./helpers/importDataHandler";
+	import { onchangeHandler } from "./helpers/onchangeHandler";
+	import type {Props} from './type'
     let {inputType}:Props=$props()
+	let selectValue=$state<{value:string}>({value:''})
+
+	// function selectArrayHandler(value:string){
+	//   selectedArrayKey.key=value
+	// }
+
+	
 </script>
 {#if inputType==='json'||inputType===''}
 <Input errorMessage={importData.data.errorMessage} value="" label="file" inputType="input" dataType="file" onchangeInput={e=> onchangeHandler(e,'json')}/>
@@ -13,5 +22,8 @@
 {/if}
 
 {#if Array.isArray(importData.data.value)&& importData.data.value.length}
-<Select value={importData.data.value[0][0]} label="arrays" errorMessage="" data={importData.data.value} selectItem={([key])=>{return key}} onchange={e=> console.log(e)}/>
+<section class="flex gap-3 items-end">
+	<Select bind:value={selectValue.value}  label="arrays" data={importData.data.value} selectItem={([key])=>{return key}} valueFallback="Select array" name="arrays"/>
+	<Button onclick={()=> importDataHandler(selectValue.value)} disabled={!selectValue.value} class="mb-3">Import</Button>
+</section>
 {/if}

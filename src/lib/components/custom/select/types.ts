@@ -4,8 +4,10 @@ export type Props<T>={
     label:string 
     labelId?:string
     value:string
-    errorMessage:string,
+    valueFallback:string
+    name:string
+    errorMessage?:string,
     data:T[]
     selectItem:(value:T)=>string
-    onchange:FormEventHandler<HTMLButtonElement>
+    onchange?:(value:string)=>void
 }
