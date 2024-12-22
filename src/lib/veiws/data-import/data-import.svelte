@@ -6,6 +6,9 @@
 	import { importData } from "./state/importData/importData.svelte";
  let{data}= importData
 </script>
+<section>
+    
+</section>
 {#snippet tabs()}
     <TabsTrigger disabled={importData.data.inputType==='array'} value="json">json file</TabsTrigger>
     <TabsTrigger disabled={importData.data.inputType==='json'}  value="array">js array or object</TabsTrigger>
@@ -20,5 +23,7 @@
     </TabsContent>
 {/snippet}
 
-
-<Tabs {tabs} {content} value={'json'}/>
+<section class="flex justify-center w-full m-5">
+    <Tabs {tabs} {content} value={'json'}/>
+</section>
+<hr class="border"/>
