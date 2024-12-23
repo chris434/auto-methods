@@ -1,7 +1,7 @@
 import type { ObjectKey } from "$lib/types/object/object";
 
 export type ArrayDataType={
-    inputValue: InputValue,
+    inputValue: InputValue
     outputValue: any[],
     inputType: InputType,
 }

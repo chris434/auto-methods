@@ -5,3 +5,4 @@ export type Props={
     errorMessage:string
     inputType:InputType
 }
+export type ToggleProps='show'|'edit'|'none'

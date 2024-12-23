@@ -6,6 +6,6 @@ class ArrayData{
     setInputValue=(value:InputValue )=>{
         this.data={...this.data,inputValue:value}
     }
-}
+} 
 
 export let arrayData=new ArrayData()

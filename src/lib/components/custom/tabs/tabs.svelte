@@ -4,7 +4,7 @@
     const {tabs,content,value}:Props=$props()
    </script>
     
-   <Tabs.Root {value} class="w-[400px]">
+   <Tabs.Root {value}>
     <Tabs.List class="grid w-full grid-cols-2">
       {@render tabs()}
     </Tabs.List>

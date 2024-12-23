@@ -6,6 +6,7 @@ import { importData } from "../../state/importData/importData.svelte";
 import type { ObjectType, Types } from "$lib/state/arrayData/types";
 
 const {setInputValue}=arrayData
+const {resetImportData}=importData
 export function importDataHandler(selectedValue: string){
 const selecedArray= importData.data.value.find(([key])=> key===selectedValue)
 if(selecedArray ){
@@ -36,6 +37,7 @@ forEachObject<ObjectType[string]>(types.objectTypes,(key,value)=>{
     const arrayData={data:root,types}
     console.log(arrayData)
     setInputValue(arrayData)
+    resetImportData()
 
     function rootObjectLoop(cb:(key:string,value:any)=>void, beforeCb?:()=>void,afterCb?:(value:unknown)=>void){
         for(let {type,value} of root){

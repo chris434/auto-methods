@@ -9,7 +9,7 @@ let {errorMessage='',label,labelId=label,data,selectItem,value=$bindable(),value
 </script>
 <LabelErrorWrapper {errorMessage} {label} {labelId}>
       <Select.Root type="single" {name} bind:value>
-        <Select.Trigger class="w-[180px]">{value||valueFallback}</Select.Trigger>
+        <Select.Trigger class="w-[15rem]">{value||valueFallback}</Select.Trigger>
         <Select.Content>
             {#each data as item }
         {@const selectedItem=selectItem(item)}

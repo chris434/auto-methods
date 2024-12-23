@@ -4,7 +4,8 @@
 	import TabsTrigger from "$lib/components/ui/tabs/tabs-trigger.svelte";
 	import InputImport from "./inputImport/inputImport.svelte";
 	import { importData } from "./state/importData/importData.svelte";
- let{data}= importData
+    import {Button} from "$lib/components/ui/button"
+ let {toggle,setToggle,resetImportData}=importData
 </script>
 <section>
     
@@ -19,11 +20,20 @@
      <InputImport inputType="json"/>
     </TabsContent>
     <TabsContent value="array">
-        <InputImport inputType="array"/>
+        <InputImport inputType="array"/> 
     </TabsContent>
 {/snippet}
-
-<section class="flex justify-center w-full m-5">
+<div class="m-3">
+{#if toggle.value==='show'||toggle.value==='edit' }
+<section class="flex flex-col items-center justify-center w-full">
     <Tabs {tabs} {content} value={'json'}/>
+    {#if toggle.value==='edit'}
+    <Button class="w-[20rem]" onclick={resetImportData}>Cancel</Button>
+    {/if}
 </section>
+{ :else if toggle.value==='none'}
+<Button onclick={()=>setToggle('edit')}>Change</Button>
+{/if}
+</div>
+
 <hr class="border"/>
