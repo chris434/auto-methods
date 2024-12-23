@@ -1,3 +1,3 @@
-export type onChange = Event&{
-    currentTarget:EventTarget & HTMLTextAreaElement & HTMLInputElement
+export type onChange<T> = Event&{
+    currentTarget: EventTarget& T
 }

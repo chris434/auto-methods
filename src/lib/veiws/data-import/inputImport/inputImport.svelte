@@ -4,7 +4,7 @@
 	import Button from "$lib/components/ui/button/button.svelte";
 	import { importData } from "../state/importData/importData.svelte";
 	import { importDataHandler } from "./helpers/importDataHandler";
-	import { onchangeHandler } from "./helpers/onchangeHandler";
+	import { onchangeHandlerJson,onchangeHandlerArray } from "./helpers/onchangeHandler";
 	import type {Props} from './type'
     let {inputType}:Props=$props()
 	let selectValue=$state<{value:string}>({value:''})
@@ -12,9 +12,9 @@
 
 </script>
 {#if inputType==='json'||inputType===''}
-	<Input accept="application/json" errorMessage={importData.data.errorMessage} value="" label="file" inputType="input" dataType="file" onchangeInput={e=> onchangeHandler(e,'json')} onremove={()=>resetImportData({setToggleToNone:false})}/>
+	<Input accept="application/json" errorMessage={importData.data.errorMessage} value="" label="file" inputType="input" dataType="file" onchangeInput={e=> onchangeHandlerJson(e ,'json')} onremove={()=>resetImportData({setToggleToNone:false})}/>
 {:else}
-<Input errorMessage={importData.data.errorMessage} value="" label="array or object" inputType="textarea" onchangeText={e=> onchangeHandler(e,'array')}/>
+<Input errorMessage={importData.data.errorMessage} value="" label="array or object" inputType="textarea" onchangeText={e=> onchangeHandlerArray(e,'array')}/>
 {/if}
 
 {#if Array.isArray(importData.data.value)&& importData.data.value.length}
