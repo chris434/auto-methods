@@ -10,5 +10,6 @@ export type Props={
     inputType:'input'|'textarea'
     onchangeInput?:ChangeEventHandler<HTMLInputElement&HTMLTextAreaElement>
     onchangeText?:ChangeEventHandler<HTMLTextAreaElement&HTMLInputElement>
+    onremove?:()=>void
     
 }

@@ -8,15 +8,11 @@
 	import type {Props} from './type'
     let {inputType}:Props=$props()
 	let selectValue=$state<{value:string}>({value:''})
+	let {setImportData}=importData
 
-	// function selectArrayHandler(value:string){
-	//   selectedArrayKey.key=value
-	// }
-
-	
 </script>
 {#if inputType==='json'||inputType===''}
-<Input errorMessage={importData.data.errorMessage} value="" label="file" inputType="input" dataType="file" onchangeInput={e=> onchangeHandler(e,'json')}/>
+	<Input errorMessage={importData.data.errorMessage} value="" label="file" inputType="input" dataType="file" onchangeInput={e=> onchangeHandler(e,'json')} onremove={()=>setImportData({})}/>
 {:else}
 <Input errorMessage={importData.data.errorMessage} value="" label="array or object" inputType="textarea" onchangeText={e=> onchangeHandler(e,'array')}/>
 {/if}

@@ -9,6 +9,7 @@ import { convertToJs } from "$lib/utitls/js/js";
 let {setImportData}=importData
 export function onchangeHandler(e:onChange,inputType:InputType){
     const currentTarget=e.currentTarget 
+    console.log(e.currentTarget.value)
 if(!currentTarget.value) return setImportData({})
     if(currentTarget.files?.length){
    fileReader(currentTarget.files[0]).then((fileValue =>{
