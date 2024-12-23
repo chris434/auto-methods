@@ -1,0 +1,1 @@
+export const METHODS=['map','filter','reduce','reduceRight','sort','errey','some','reverse'] 
