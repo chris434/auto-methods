@@ -12,7 +12,7 @@
 
 </script>
 {#if inputType==='json'||inputType===''}
-	<Input errorMessage={importData.data.errorMessage} value="" label="file" inputType="input" dataType="file" onchangeInput={e=> onchangeHandler(e,'json')} onremove={()=>resetImportData({setToggleToNone:false})}/>
+	<Input accept="application/json" errorMessage={importData.data.errorMessage} value="" label="file" inputType="input" dataType="file" onchangeInput={e=> onchangeHandler(e,'json')} onremove={()=>resetImportData({setToggleToNone:false})}/>
 {:else}
 <Input errorMessage={importData.data.errorMessage} value="" label="array or object" inputType="textarea" onchangeText={e=> onchangeHandler(e,'array')}/>
 {/if}
