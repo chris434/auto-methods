@@ -6,3 +6,6 @@ export type Props={
     inputType:InputType
 }
 export type ToggleProps='show'|'edit'|'none'
+export type ResetImportDataOptions={
+    setToggleToNone:boolean
+}

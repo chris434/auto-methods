@@ -1,4 +1,4 @@
-import type { Props, ToggleProps } from "./types.ts"
+import type { Props, ResetImportDataOptions, ToggleProps } from "./types.ts"
 
 const INT_DATA:Props={value:[],errorMessage:'',inputType:''}
 class ImportData{
@@ -11,8 +11,8 @@ class ImportData{
      this.toggle.value=value
     }
 
-    resetImportData=()=>{
-        this.toggle.value='none'
+    resetImportData=(opt:ResetImportDataOptions={setToggleToNone:true})=>{
+        if(opt.setToggleToNone)this.toggle.value='none'
         this.data=INT_DATA
     }
 }

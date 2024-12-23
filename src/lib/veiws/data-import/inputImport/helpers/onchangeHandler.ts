@@ -6,11 +6,11 @@ import { importData } from "../../state/importData/importData.svelte";
 import { findJsonArrays } from "../utils/findJsonArrays/findJsonArrays";
 import { convertToJs } from "$lib/utitls/js/js";
 
-let {setImportData}=importData
+let {setImportData,resetImportData}=importData
 export function onchangeHandler(e:onChange,inputType:InputType){
     const currentTarget=e.currentTarget 
     console.log(e.currentTarget.value)
-if(!currentTarget.value) return setImportData({})
+if(!currentTarget.value) return resetImportData({setToggleToNone:false})
     if(currentTarget.files?.length){
    fileReader(currentTarget.files[0]).then((fileValue =>{
       const returnValue= isJson<[]|object>(fileValue as string)
