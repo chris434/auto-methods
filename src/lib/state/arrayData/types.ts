@@ -3,11 +3,21 @@ import type { ObjectKey } from "$lib/types/object/object";
 export type ArrayDataType={
     inputValue: InputValue
     outputValue: any[],
+    methods:Methods[]
+    usedTypes:string[]
     inputType: InputType,
 }
 export type InputValue={
     data:unknown[]
     types:Types
+}
+export type Methods={
+    name:string,
+    types:string[]
+    arrgs:Arrgs[]
+}
+export type Arrgs={
+    type:string
 }
 export type InputType='json'|'array'|''
 

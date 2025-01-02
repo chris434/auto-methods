@@ -33,7 +33,8 @@ forEachObject<ObjectType[string]>(types.objectTypes,(key,value)=>{
     const uniqueTypes=Array.from(new Set(value.types)) 
     types.objectTypes[key]={ keyInAll:keyCount[key]===objectCount,types:uniqueTypes}
 })
-
+   const objectTypes= Object.keys(types.objectTypes)
+   if(objectTypes.length) types.singleTypes.push('object')
     const arrayData={data:root,types}
     console.log(arrayData)
     setInputValue(arrayData)

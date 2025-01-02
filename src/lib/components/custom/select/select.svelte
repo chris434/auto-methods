@@ -3,12 +3,12 @@
 	import LabelErrorWrapper from "../labelErrorWrapper/labelErrorWrapper.svelte";
  import * as Select from "$lib/components/ui/select/index.js";
 
-let {errorMessage='',label,labelId=label,data,selectItem,value=$bindable(),valueFallback,name}:Props<T>=$props()
+let {errorMessage='',label,labelId=label,data,selectItem,value=$bindable(),valueFallback,name,onchange}:Props<T>=$props()
 
   
 </script>
-<LabelErrorWrapper {errorMessage} {label} {labelId}>
-      <Select.Root type="single" {name} bind:value>
+<LabelErrorWrapper  {errorMessage} {label} {labelId}>
+      <Select.Root onValueChange={onchange} type="single" {name} bind:value>
         <Select.Trigger class="w-[15rem]">{value||valueFallback}</Select.Trigger>
         <Select.Content>
             {#each data as item }
