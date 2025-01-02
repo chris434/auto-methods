@@ -1,29 +1,32 @@
 import { INIT_ARRAY_DATA } from "./data.js"
-import type { ArrayDataType, InputValue} from "./types.ts"
+import type { ArrayDataType, InputValue, Methods} from "./types.ts"
 
 class ArrayData{
      data=$state<ArrayDataType>(INIT_ARRAY_DATA)
     setInputValue=(value:InputValue )=>{
         this.data={...this.data,inputValue:value,methods:[...this.data.methods,{name:'',arrgs:[],types:[...value.types.singleTypes]}]}
     }
+    #mapMethod=(cb:(value:Methods,i:number)=>Methods)=>{
+        const mappedMethods=  this.data.methods.map((method,index)=>{
+          return cb(method,index)
+        })
+        this.data.methods=mappedMethods
+    }
     replaceMethod=(name:string,i:number)=>{
         console.log(name)
-        const mappedMethods=  this.data.methods.map((method,index)=>{
+        this.#mapMethod((method,index)=>{
             if(index===i) return {...method,name}
             return method
         })
-        this.data.methods=mappedMethods
     }
     addNewArrg =(i:number)=>{
-      const mappedMethods=  this.data.methods.map((method,index)=>{
+        this.#mapMethod((method,index)=>{
             if(index===i) return {...method,arrgs:[...method.arrgs,{type:''}]}
             return method
         })
-        this.data.methods=mappedMethods
     }
     updateArrg=(type:string,methodIndex:number,arrgIndex:number)=>{
-  
-        const mappedMethods=this.data.methods.map((method,index)=>{
+       this.#mapMethod((method,index)=>{
             if(index===methodIndex){
                 const filteredTypes=method.types.filter((thisType)=>{return thisType!==type})
                 const mappedArrgs=method.arrgs.map((arrg,index)=>{
@@ -37,8 +40,6 @@ class ArrayData{
           
             return method
         })
-        this.data.methods=mappedMethods
-        console.log(mappedMethods)
     }
 
 } 
