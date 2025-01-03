@@ -12,8 +12,8 @@ const {i,method}:{i:number,method:Methods}=$props()
 <Button disabled={!arrayData.data.methods[i].name||arrayData.data.inputValue.types.singleTypes.length===arrayData.data.methods[i].arrgs.length} onclick={()=>addNewArrg(i)}>add New argument</Button>
 {#each method.arrgs as arrg,arrgIndex }
 <div class="flex space-x-3 items-center">
-    <Select name="method" value={arrg.type} valueFallback="Select method" label="method" data={arrg.types} onchange={(type)=>updateArrg(type,i,arrgIndex)} selectItem={method => {return method}} />
-    <Button onclick={()=>deleteArrg(i,arrgIndex)}>Delete</Button>
+    <Select name="argument" value={arrg.type} valueFallback="Select argument" label="argument" data={arrg.types} onchange={(type)=>updateArrg(type,i,arrgIndex)} selectItem={method => {return method}} />
+    <Button class="mt-3" onclick={()=>deleteArrg(i,arrgIndex)}>Delete</Button>
 </div>
 
 {/each}  
