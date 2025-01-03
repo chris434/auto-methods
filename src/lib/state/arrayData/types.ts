@@ -13,11 +13,11 @@ export type InputValue={
 }
 export type Methods={
     name:string,
-    types:string[]
     arrgs:Arrgs[]
 }
 export type Arrgs={
     type:string
+    types:string[]
 }
 export type InputType='json'|'array'|''
 

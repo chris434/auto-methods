@@ -4,7 +4,7 @@ import type { ArrayDataType, InputValue, Methods} from "./types.ts"
 class ArrayData{
      data=$state<ArrayDataType>(INIT_ARRAY_DATA)
     setInputValue=(value:InputValue )=>{
-        this.data={...this.data,inputValue:value,methods:[...this.data.methods,{name:'',arrgs:[],types:[...value.types.singleTypes]}]}
+        this.data={...this.data,inputValue:value,methods:[...this.data.methods,{name:'',arrgs:[]}]}
     }
     #mapMethod=(cb:(value:Methods,i:number)=>Methods)=>{
         const mappedMethods=  this.data.methods.map((method,index)=>{
@@ -21,21 +21,54 @@ class ArrayData{
     }
     addNewArrg =(i:number)=>{
         this.#mapMethod((method,index)=>{
-            if(index===i) return {...method,arrgs:[...method.arrgs,{type:''}]}
+            const lastArrg=method.arrgs[method.arrgs.length-1]
+            const types= !method.arrgs.length?this.data.inputValue.types.singleTypes:lastArrg.types.filter(type=>{
+             return type !==lastArrg.type
+            })
+            if(index===i) return {...method,arrgs:[...method.arrgs,{type:'',types}]}
             return method
         })
     }
     updateArrg=(type:string,methodIndex:number,arrgIndex:number)=>{
        this.#mapMethod((method,index)=>{
+         
             if(index===methodIndex){
-                const filteredTypes=method.types.filter((thisType)=>{return thisType!==type})
-                const mappedArrgs=method.arrgs.map((arrg,index)=>{
-                    return index===arrgIndex?{...arrg,type}:arrg
+                 const mappedArrgs=method.arrgs.map((arrg,index)=>{
+                    
+                   if(index!==arrgIndex){
+                    const preType=method.arrgs[arrgIndex].type
+                    const newTypes= preType!==type&&preType?arrg.types.map(thisType=>{
+                        if(thisType===type) return preType
+                        return thisType
+                    }):arrg.types.filter(thisType=>{
+                        return thisType!==type
+                    })
+                    return {...arrg,types:newTypes}
+                   }
+                   return {...arrg,type}
                 })
                 return {...method,
-                    types:filteredTypes,
                     arrgs:mappedArrgs
                 }
+            } 
+          
+            return method
+        })
+    }
+
+    deleteArrg=(methodIndex:number,arrgIndex:number)=>{
+        this.#mapMethod((method,index)=>{
+            if(index===methodIndex){
+                let type=''
+                const filteredArrgs=method.arrgs.filter((arrg,index)=>{
+                 type=index===arrgIndex?arrg.type:type
+                    return index!==arrgIndex
+                })
+                const mappedArrgs=filteredArrgs.map(arrg=>{
+                    return {...arrg,types:[...arrg.types,type]}
+                })
+            
+                return {...method, arrgs:mappedArrgs}
             } 
           
             return method

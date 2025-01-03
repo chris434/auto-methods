@@ -4,10 +4,15 @@
 	import MethodItem from "../method-item/methodItem.svelte";
 	import { METHODS } from "./data";
 const {replaceMethod}=arrayData
+let methods= $derived(arrayData.data.methods)
+$effect(()=>{
+    console.log(methods)
+})
 </script>
 {#if arrayData.data.inputValue.data.length}
-{#each arrayData.data.methods  as {types},i}
+{#each methods  as method,i}
 <Select name="method" value="" valueFallback="Select method" label="method" data={METHODS} selectItem={method => {return method}} onchange={name=>replaceMethod(name,i)}/>
-<MethodItem {types} {i}/>
+<MethodItem {method} {i}/>
 {/each}
+
 {/if}
