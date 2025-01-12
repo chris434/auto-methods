@@ -10,9 +10,9 @@ $effect(()=>{
 })
 </script>
 {#if arrayData.data.inputValue.data.length}
-{#each methods  as method,i}
-<Select name="method" value="" valueFallback="Select method" label="method" data={METHODS} selectItem={method => {return method}} onchange={name=>replaceMethod(name,i)}/>
-<MethodItem {method} {i}/>
+{#each methods  as method,methodIndex}
+<Select name="method" value="" valueFallback="Select method" label="method" data={METHODS} selectItem={method => {return method}} onchange={name=>replaceMethod(name,methodIndex)}/>
+<MethodItem {method} {methodIndex}/>
 {/each}
 
 {/if}

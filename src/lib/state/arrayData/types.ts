@@ -17,8 +17,22 @@ export type Methods={
 }
 export type Arrgs={
     type:string
+    statements:Statement[]
     types:string[]
 }
+export type Statement={
+    statementType:StatementType
+    condisions:Condision[]
+}
+export type Condision={
+    valueType:string
+    oparator:string
+    condisionValue:''
+    logical:'AND'|'OR'|''
+    selectedObjectKey:string
+}
+export type CondisionKeys=  keyof Condision
+export type StatementType='if'|'if else'
 export type InputType='json'|'array'|''
 
 export type Types={

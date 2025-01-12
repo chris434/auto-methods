@@ -4,7 +4,7 @@ import type { ChangeEventHandler, FormEventHandler } from "svelte/elements"
 export type Props={
     label:string 
     labelId?:string
-    dataType?:'text'|'file'
+    dataType?:'text'|'file'|'number'
     value:string
     errorMessage:string
     inputType:'input'|'textarea'

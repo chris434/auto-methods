@@ -1,7 +1,7 @@
-import type { Props } from "./props"
+import type { Arrays, Props } from "./types"
 
 export function objectFindArray(obj:Props){
-    const arrays:unknown[]=[]
+    let arrays:Arrays={keys:[],values:[]}
     function find(obj:Props){
         const keys = Object.keys(obj)
        for( let i=0; i<keys.length; i++){
@@ -10,7 +10,7 @@ export function objectFindArray(obj:Props){
          }
 
          if(Array.isArray(obj[keys[i]])){
-            arrays.push(obj)
+            arrays={keys:[...arrays.keys,keys[i]],values:[...arrays.values,obj[keys[i]]] }
           
          }
        }
