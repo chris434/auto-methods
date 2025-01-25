@@ -1,18 +1,24 @@
 <script lang="ts">
+import Select from "$lib/components/custom/select/select.svelte";
 	import Button from "$lib/components/ui/button/button.svelte";
-	import { arrayData } from "$lib/state/arrayData/arrayData.svelte";
-import Condition from "./condition/condition.svelte";
-import type { Props } from "./types";
-    const{addCondition}=arrayData
-let {type,statement,methodIndex,arrgIndex,statementIndex}:Props=$props()  
+	import { arrayData,get } from "$lib/state/arrayData/arrayData.svelte";
+	import type { MethodProps} from "$lib/state/arrayData/types";
+	import Statement from "../statement/statement.svelte";
+
+const methodProps:MethodProps=$props()
+let method=$derived(get<"methods">(methodProps))  
 </script>
-<div class="flex space-x-3 rounded-lg w-fit bg-slate-200 p-3">
-    <div class="text-3xl">{statement.statementType} Value</div>
-    <Button onclick={()=> addCondition(type,methodIndex,arrgIndex,statementIndex)}>Add condition</Button>
+
+{#each method.arrgs as arrg, arrgIndex }
+{@const arrgProps={...methodProps,arrgIndex}}
+{@const {updateArrg,deleteArrg}=arrayData.arrgActions(arrgProps)}
+
+
+<div class="flex space-x-3 items-center">
+    <Select name="argument" value={arrg.type} valueFallback="Select argument" label="argument" data={arrg.types} onchange={(type)=>updateArrg(type)} selectItem={method => {return method}} />
+    <Button class="mt-3" onclick={deleteArrg}>Delete</Button>
 </div>
-    
-<section>
-{#each statement.condisions as condition,conditionIndex}
-    <Condition {methodIndex} statementType={statement.statementType} {condition} {type} {arrgIndex} {statementIndex} {conditionIndex}/>
-{/each}
-</section>
+<Statement {...methodProps} {arrgIndex} type={arrg.type}/>
+{/each}  
+
+
