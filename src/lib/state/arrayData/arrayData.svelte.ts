@@ -3,7 +3,8 @@ import { updateConditionController } from "./controllers/condition.js"
 import { addNewArrgConroller, replaceMethodController } from "./controllers/method.js"
 import { addConditionController } from "./controllers/statement.js"
 import { INIT_ARRAY_DATA } from "./data.js"
-import type { ArrayDataType, InputValue, Methods, CondisionKeys, IndexsType, ArrgProps, MethodProps, StatementProps, ConditionProps, GetReturnType, GetProps} from "./types"
+import { map } from "./helpers/map/map.js"
+import type { ArrayDataType, InputValue, Methods, CondisionKeys, IndexsType, ArrgProps, MethodProps, StatementProps, ConditionProps, GetReturnType, GetProps, Arrgs, DataCb, Statement, Condition} from "./types"
 
 class ArrayData{
      data=$state<ArrayDataType>(INIT_ARRAY_DATA)
@@ -12,11 +13,23 @@ class ArrayData{
     }
    
     #mapMethod=(targetIndex:number,cb:(value:Methods,i:number)=>Methods)=>{
-        const mappedMethods=  this.data.methods.map((method,index)=>{
-        if(targetIndex===index) return cb(method,index)
-        return method
-        })
-        this.data.methods=mappedMethods
+        map(this.data,this.data.methods,'methods',targetIndex,(method,i)=>cb(method,i),{setCb:(value)=> {this.data.methods=value}})
+    }
+    #mapArrgument=({methodIndex,arrgIndex}:ArrgProps,isCb:DataCb<Arrgs>,isNotCb?:DataCb<Arrgs>)=>{
+     return this.#mapMethod(methodIndex,(method)=>{
+        return map(method,method.arrgs,'arrgs',arrgIndex,(arrg,i,isNotEqual)=>!isNotEqual?isCb(arrg,i):isNotCb?isNotCb(arrg,i):arrg,{notEqaul:true})
+      })
+    }
+
+    #mapStatement=({methodIndex,arrgIndex,statementIndex}:Omit<StatementProps,'type'> ,isCb:DataCb<Statement>)=>{
+   return this.#mapArrgument({methodIndex,arrgIndex},(arrg)=> {
+       return map(arrg,arrg.statements,'statements',statementIndex,(statement,i)=>isCb(statement,i))
+    })
+    }
+    #mapCondition=({methodIndex,arrgIndex,statementIndex,conditionIndex}:ConditionProps,isCb:DataCb<Condition>)=>{
+     return this.#mapStatement({methodIndex,arrgIndex,statementIndex},(statement)=> {
+       return map(statement,statement.conditions,'conditions',conditionIndex,(condition,i)=>isCb(condition,i))
+    })
     }
     replaceMethod=(name:string,{methodIndex}:IndexsType)=>{
         this.#mapMethod(methodIndex,(method)=>replaceMethodController(name,method))
@@ -32,66 +45,24 @@ class ArrayData{
     return {replaceMethod,addNewArrg}
    }
     arrgActions=(arrgProps:ArrgProps)=>{
-        const {methodIndex,arrgIndex}=arrgProps
+        const {methodIndex}=arrgProps
        const updateArrg=(type:string)=>{
-           this.#mapMethod(methodIndex,(method)=>{
-            const mappedArrgs=method.arrgs.map((arrg,index)=>{
-                        
-                if(index!==arrgIndex){
-                 return updateArrgOtherConroller(arrg,type)
-                } 
-                if(arrgIndex===arrgIndex){
-                    return updateArrgController(arrg,type)
-                }
-                return arrg
-             }) 
-             return {...method,
-                 arrgs:mappedArrgs
-             }
-        })
+        this.#mapArrgument(arrgProps,(arrg)=>updateArrgController(arrg,type),(arrg)=>updateArrgOtherConroller(arrg,type))
     }
        const deleteArrg=()=>{
             this.#mapMethod(methodIndex,deleteArrgController)
         }
         return {updateArrg,deleteArrg}
     }
-    satementActions=({methodIndex,arrgIndex,statementIndex,type}:StatementProps)=>{
+    satementActions=(statementProps:StatementProps)=>{
         const addCondition=()=>{
-
-            this.#mapMethod(methodIndex,method=>{
-              return {...method,arrgs:method.arrgs.map((arrg,i)=>{
-                   if(arrgIndex===i)return {...arrg,statements:arrg.statements.map((statement,i)=>{
-                       console.log(statement)
-                      if(statementIndex===i)  return addConditionController(statement,type)
-                      return statement
-                      })}
-                      return arrg
-                   })}
-              })
-              
-            
-           }
+        this.#mapStatement(statementProps,(statement)=>addConditionController(statement,statementProps.type))
+        }
            return {addCondition}
     }
-     conditionActions=({methodIndex,arrgIndex,statementIndex,conditionIndex,type}:ConditionProps)=>{
+     conditionActions=(conditionProps:ConditionProps)=>{
       const  updateCondition=(key:CondisionKeys, ObjectKey:string)=>{
-    
-         this.#mapMethod(methodIndex,method=>{
-           return {...method,arrgs:method.arrgs.map((arrg,i)=>{
-                
-                if(arrgIndex===i)return {...arrg,statements:arrg.statements.map((statement,i)=>{
-                    console.log(statementIndex===i)
-                   if(statementIndex===i)  return {...statement,conditions:statement.conditions.map((condition,i)=>{
-                    if(conditionIndex===i) return updateConditionController(condition,key,ObjectKey)
-                    return condition
-                   })}
-                   return statement
-                })}
-                return arrg
-            })
-        }
-         })
-         
+        this.#mapCondition(conditionProps,(condition)=>updateConditionController(condition,key,ObjectKey))
         }
         return {updateCondition}
     }

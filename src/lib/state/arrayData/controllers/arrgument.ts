@@ -1,7 +1,7 @@
 import type { Arrgs, Methods } from "../types"
 
 export function updateArrgController(arrg:Arrgs,type:string){
-  return {...arrg,type,statements:[{statementType:"if",conditions:[{oparator:"",condisionValue:"",selectedObjectKey:'',logical:'',valueType:type!=='object'?type:''}]}]}
+  return {...arrg,type,statements:[...arrg.statements,{statementType:"if",conditions:[ {oparator:"",condisionValue:"",selectedObjectKey:'',logical:'',valueType:type!=='object'?type:''}]}]}
 }
 export function updateArrgOtherConroller(arrg:Arrgs,type:string){
     const preType=arrg.type
