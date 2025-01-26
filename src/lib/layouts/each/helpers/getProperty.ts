@@ -1,6 +1,7 @@
 import type { ActionKeys, GetReturnType, Methods} from "$lib/state/arrayData/types";
 
 export function getProperty<T extends ActionKeys>(data:GetReturnType<T>|{methods:Methods[]}){
+    console.log(data)
     let property:unknown[]=[]
         switch (true) {
             case 'methods' in data:

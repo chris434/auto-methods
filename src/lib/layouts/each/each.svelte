@@ -7,6 +7,7 @@
 	import { getProperty } from './helpers/getProperty';
 let {key,props,children}:{key:T,props:SelectedProp<T>,children:Snippet<[child:GetReturnType<T>,sindex:number]>}=$props()
 let data= $derived(key=="methods"&&{methods:arrayData.data.methods}||props&& get<T>(props))
+console.log(props&&get<T>(props))
 </script>
 
 {#each getProperty<T>(data) as child,index  }
