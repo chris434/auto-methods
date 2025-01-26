@@ -2,14 +2,14 @@
 	import Input from "$lib/components/custom/input/input.svelte";
     import Select from "$lib/components/custom/select/select.svelte";
 	import Button from "$lib/components/ui/button/button.svelte";
-	import { arrayData,get } from "$lib/state/arrayData/arrayData.svelte";
-	import type { StatementProps } from "$lib/state/arrayData/types";
+	import Each from "$lib/layouts/each/each.svelte";
+	import { arrayData} from "$lib/state/arrayData/arrayData.svelte";
+	import type { StatementProps,Condition } from "$lib/state/arrayData/types";
 	import { LOGICAL, OPORATORS } from "./data";
 	import { conditionHelper } from "./helpers/conditionHelper.svelte";
 
-    let conditionProps:StatementProps=$props()
-    const {type}=conditionProps
-    const statements=$derived(get<"statement">(conditionProps))
+    let statementProps:StatementProps=$props()
+    const {type}=statementProps
     const objectTypes =arrayData.data.inputValue.types.objectTypes
     const objectKeys = Object.keys(objectTypes)
     
@@ -20,8 +20,8 @@
     const conditionText="condision value"
 </script>
 
-{#each statements.conditions  as condition,conditionIndex }
-    {@const {updateConditionHandler}=conditionHelper({...conditionProps,conditionIndex})}
+ {#snippet condition(condition:Condition, conditionIndex:number)}
+    {@const {updateConditionHandler}=conditionHelper({...statementProps,conditionIndex})}
     {@const logicale=condition.logical}
     {@const valueType=condition.valueType}
     {@const oporator=condition.oparator}
@@ -55,4 +55,6 @@
             <Button class="mt-3">delete</Button>
         </div>
     </section>
-{/each}
+    {/snippet}
+
+<Each key="conditions" props={statementProps} children={condition}/>

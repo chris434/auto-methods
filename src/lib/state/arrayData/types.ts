@@ -61,13 +61,20 @@ export type ArrgProps=MethodType<"methodIndex"|"arrgIndex",'type-none'>
 export type StatementProps=MethodType<"methodIndex"|"arrgIndex"|"statementIndex">
 export type ConditionProps=MethodType<"methodIndex"|"arrgIndex"|"statementIndex"|"conditionIndex">
 export type StatementComponentProps=ArrgProps&{type:string}
+
+export type SelectedProp<T>= 
+T extends 'arrgs'?MethodProps:
+T extends 'statement'?ArrgProps:
+T extends 'conditions'? StatementProps:
+null
+
 type Compounents={
     methods:Methods
     arrgs:Arrgs
     statement:Statement
     conditions:Condition
 }
-
+export type ActionKeys='methods'|'arrgs'|'statement'|'conditions'
 export type CompounentKeys=keyof Compounents
 export type GetProps=Partial<ConditionProps>&{methodIndex:number}
 export type GetReturnType<T>=
