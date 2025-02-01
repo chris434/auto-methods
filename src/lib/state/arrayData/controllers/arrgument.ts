@@ -1,8 +1,13 @@
-import type { Arrgs, Methods } from "../types"
+import type { Arrgs, ArrgTypeof, Methods } from "../types"
 
 export function updateArrgController(arrg:Arrgs,type:string){
   return {...arrg,type,statements:[...arrg.statements,{statementType:"if",conditions:[ {oparator:"",condisionValue:"",selectedObjectKey:'',logical:'',valueType:type!=='object'?type:''}]}]}
 }
+export function typeofController(arrg:Arrgs, typeofValue:ArrgTypeof):Arrgs{
+return {...arrg,typeof:typeofValue}
+}
+
+
 export function updateArrgOtherConroller(arrg:Arrgs,type:string){
     const preType=arrg.type
         const newTypes= preType!==type&&preType?arrg.types.map(thisType=>{

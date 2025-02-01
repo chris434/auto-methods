@@ -19,8 +19,10 @@ export type Methods={
 export type Arrgs={
     type:string
     statements:Statement[]
+    typeof:ArrgTypeof,
     types:string[]
 }
+export type ArrgTypeof='type and value'|'type only'
 export type Statement={
     statementType:StatementType
     conditions:Condition[]

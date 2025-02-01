@@ -1,10 +1,11 @@
-import { deleteArrgController, updateArrgController, updateArrgOtherConroller } from "./controllers/arrgument.js"
+import { typeofValue } from "$lib/utitls/typeof/typeof.js"
+import { deleteArrgController, typeofController, updateArrgController, updateArrgOtherConroller } from "./controllers/arrgument.js"
 import { updateConditionController } from "./controllers/condition.js"
 import { addNewArrgConroller, replaceMethodController } from "./controllers/method.js"
 import { addConditionController } from "./controllers/statement.js"
 import { INIT_ARRAY_DATA } from "./data.js"
 import { map } from "./helpers/map/map.js"
-import type { ArrayDataType, InputValue, Methods, CondisionKeys, IndexsType, ArrgProps, MethodProps, StatementProps, ConditionProps, GetReturnType, GetProps, Arrgs, DataCb, Statement, Condition} from "./types"
+import type { ArrayDataType, InputValue, Methods, CondisionKeys, IndexsType, ArrgProps, MethodProps, StatementProps, ConditionProps, Arrgs, DataCb, Statement, Condition, ArrgTypeof} from "./types"
 
 class ArrayData{
      data=$state<ArrayDataType>(INIT_ARRAY_DATA)
@@ -49,10 +50,13 @@ class ArrayData{
        const updateArrg=(type:string)=>{
         this.#mapArrgument(arrgProps,(arrg)=>updateArrgController(arrg,type),(arrg)=>updateArrgOtherConroller(arrg,type))
     }
+    const setTypeOf=(value:ArrgTypeof)=>{
+      this.#mapArrgument(arrgProps,(arrg)=>typeofController(arrg,value))
+     }
        const deleteArrg=()=>{
             this.#mapMethod(methodIndex,deleteArrgController)
         }
-        return {updateArrg,deleteArrg}
+        return {updateArrg,deleteArrg,setTypeOf}
     }
     satementActions=(statementProps:StatementProps)=>{
         const addCondition=()=>{
@@ -66,7 +70,5 @@ class ArrayData{
         }
         return {updateCondition}
     }
-   
 } 
-
 export let arrayData=new ArrayData()
