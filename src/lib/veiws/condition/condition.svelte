@@ -30,15 +30,15 @@
 
     <section class="pl-3 pr-3 flex flex-col space-y-3">
         {#if conditionIndex }
-        <Select name={logicalText} value={logicale} valueFallback="Select {logicalText}" label={logicalText} data={LOGICAL} selectItem={oporator => {return oporator}} onchange={value=>updateConditionHandler(value,'logical')}/>  
+        <Select name={logicalText} value={logicale} valueFallback="Select {logicalText}" label={logicalText} data={LOGICAL} onchange={value=>updateConditionHandler(value,'logical')}/>  
         {/if}
        
         <div class="flex space-x-3 items-center">
             <div class="flex pl-3 pr-3 items-center space-x-3 ">
                 {#if type==='object' }
-                <Select name={objectKeyText} value={selectedObjectKey} valueFallback="Select {objectKeyText}" label={objectKeyText} data={objectKeys} selectItem={oporator => {return oporator}} onchange={value=>updateConditionHandler(value,'selectedObjectKey')}/>
+                <Select name={objectKeyText} value={selectedObjectKey} valueFallback="Select {objectKeyText}" label={objectKeyText} data={objectKeys} onchange={value=>updateConditionHandler(value,'selectedObjectKey')}/>
                     {#if selectedObjectKey}
-                    <Select name={valueTypeText} value={valueType} valueFallback="Select {valueTypeText}" label={valueTypeText} data={objectTypes[selectedObjectKey].types} selectItem={oporator => {return oporator}} onchange={value=>updateConditionHandler(value,'valueType')} />
+                    <Select name={valueTypeText} value={valueType} valueFallback="Select {valueTypeText}" label={valueTypeText} data={objectTypes[selectedObjectKey].types} onchange={value=>updateConditionHandler(value,'valueType')} />
                    {/if}
                 {/if}
             </div>

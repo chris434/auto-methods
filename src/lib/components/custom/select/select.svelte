@@ -8,11 +8,11 @@ let {errorMessage='',label,labelId=label,data,selectItem,value=$bindable(),value
   
 </script>
 <LabelErrorWrapper  {errorMessage} {label} {labelId}>
-      <Select.Root onValueChange={onchange} type="single" {name} bind:value>
+      <Select.Root onValueChange={(value)=>onchange&&onchange(value as T)} type="single" {name} bind:value>
         <Select.Trigger class="w-[15rem]">{value||valueFallback}</Select.Trigger>
         <Select.Content>
             {#each data as item }
-        {@const selectedItem=selectItem(item)}
+        {@const selectedItem=selectItem?selectItem(item):item as string}
         <Select.Item value={selectedItem} label={selectedItem}/>
         {/each}
         </Select.Content>

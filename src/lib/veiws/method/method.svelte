@@ -9,7 +9,7 @@
 </script>
 {#snippet method(method:Methods,methodIndex:number)}
  {@const {replaceMethod,addNewArrg}=arrayData.methodActions({methodIndex})}
- <Select name="method" value="" valueFallback="Select method" label="method" data={METHODS} selectItem={method => {return method}} onchange={name=>replaceMethod(name)}/>
+ <Select name="method" value="" valueFallback="Select method" label="method" data={METHODS} onchange={name=>replaceMethod(name)}/>
  <Button disabled={!method.name||arrayData.data.inputValue.types.singleTypes.length===method.arrgs.length} onclick={addNewArrg}>add New argument</Button>
  <Argument {...{methodIndex}} />
  {/snippet}

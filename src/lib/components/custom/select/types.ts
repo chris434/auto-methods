@@ -7,7 +7,7 @@ export type Props<T>={
     valueFallback:string
     name:string
     errorMessage?:string,
-    data:T[]
-    selectItem:(value:T)=>string
-    onchange?:(value:string)=>void
+    data:readonly T[]
+    selectItem?:(value:T)=>string
+    onchange?:(value:T)=>void
 }

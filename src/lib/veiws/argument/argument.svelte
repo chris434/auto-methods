@@ -14,12 +14,12 @@ const methodProps:MethodProps=$props()
 {@const arrgProps={...methodProps,arrgIndex}}
 {@const {updateArrg,deleteArrg,setTypeOf}=arrayData.arrgActions(arrgProps)}
 <div class="flex space-x-3 items-center">
-    <Select name="argument" value={arrg.type} valueFallback="Select argument" label="argument" data={arrg.types} onchange={(type)=>updateArrg(type)} selectItem={method => {return method}} />
+    <Select name="argument" value={arrg.type} valueFallback="Select argument" label="argument" data={arrg.types} onchange={(type)=>updateArrg(type)} />
     <Button class="mt-3" onclick={deleteArrg}>Delete</Button>
 </div>
 {#if arrg.type}
 <div class="flex space-x-3">
-    <Select name="typeof" value={arrg.typeof} valueFallback="Select typeof" label="typeof" data={TYPEOF} selectItem={method => {return method}} onchange={value=>setTypeOf(value,'typeof')} />
+    <Select data={TYPEOF}  name="typeof" value={arrg.typeof} valueFallback="Select typeof" label="typeof" onchange={(value)=>setTypeOf(value)} />
  </div>
  {#if arrg.typeof==='type and value'}
 <Statement {...methodProps} {arrgIndex} type={arrg.type}/>

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Select from "$lib/components/custom/select/select.svelte";
 import Button from "$lib/components/ui/button/button.svelte";
 	import Each from "$lib/layouts/each/each.svelte";
 	import { arrayData} from "$lib/state/arrayData/arrayData.svelte";
