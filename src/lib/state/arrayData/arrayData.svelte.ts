@@ -1,8 +1,7 @@
-import { typeofValue } from "$lib/utitls/typeof/typeof.js"
 import { deleteArrgController, typeofController, updateArrgController, updateArrgOtherConroller } from "./controllers/arrgument.js"
 import { updateConditionController } from "./controllers/condition.js"
 import { addNewArrgConroller, replaceMethodController } from "./controllers/method.js"
-import { addConditionController } from "./controllers/statement.js"
+import { addConditionController, deleteStatementController } from "./controllers/statement.js"
 import { INIT_ARRAY_DATA } from "./data.js"
 import { map } from "./helpers/map/map.js"
 import type { ArrayDataType, InputValue, Methods, CondisionKeys, IndexsType, ArrgProps, MethodProps, StatementProps, ConditionProps, Arrgs, DataCb, Statement, Condition, ArrgTypeof} from "./types"
@@ -63,7 +62,10 @@ class ArrayData{
         const addCondition=()=>{
         this.#mapStatement(statementProps,(statement)=>addConditionController(statement,statementProps.type))
         }
-           return {addCondition}
+        const deleteStatement=()=>{
+            this.#mapArrgument(statementProps,deleteStatementController)
+        }
+           return {addCondition,deleteStatement}
     }
      conditionActions=(conditionProps:ConditionProps)=>{
       const  updateCondition=(key:CondisionKeys, ObjectKey:string)=>{

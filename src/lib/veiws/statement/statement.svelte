@@ -9,11 +9,12 @@ import Button from "$lib/components/ui/button/button.svelte";
   </script>
 
  {#snippet statement(statement:Statement,statementIndex:number)}
- {@const {addCondition}=arrayData.satementActions({...arrgProps,statementIndex})}
+ {@const {addCondition,deleteStatement}=arrayData.satementActions({...arrgProps,statementIndex})}
  <div class="flex space-x-3 rounded-lg w-fit bg-slate-200 p-3">
      <div class="text-3xl">{statement.statementType} Value</div> 
      <Button onclick={addCondition}>Add condition</Button>
  </div>
+ <Button onclick={deleteStatement}>delete</Button>
  <section>
  <Condition {...arrgProps} {statementIndex} />
  </section>
