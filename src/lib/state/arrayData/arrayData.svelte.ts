@@ -42,7 +42,7 @@ class ArrayData{
         this.#mapMethod(methodIndex,(method)=>replaceMethodController(name,method))
         }
         const addNewArrg =()=>{
-            this.#mapMethod(methodIndex,(method,index)=>addNewArrgConroller(method,index,this.data.inputValue.types.singleTypes))
+            this.#mapMethod(methodIndex,(method)=>addNewArrgConroller(method,this.data.inputValue.types.singleTypes))
     }
     return {replaceMethod,addNewArrg}
    }

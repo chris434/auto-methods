@@ -1,9 +1,9 @@
 import { Table } from "svelte-radix"
 import type { Arrgs, ArrgTypeof, Methods } from "../types"
 
-export function updateArrgController(arrg:Arrgs,type:string){
+export function updateArrgController(arrg:Arrgs,type:string):Arrgs{
 if(arrg.type) return {...arrg,type}
-  return {...arrg,type,statements:[...arrg.statements,{statementType:"if",conditions:[ {oparator:"",condisionValue:"",selectedObjectKey:'',logical:'',valueType:type!=='object'?type:''}]}]}
+  return {...arrg,type,statements:[...arrg.statements,{statementType:"if",conditions:[ {oparator:"",conditionValue:"",selectedObjectKey:'',logical:'',valueType:type!=='object'?type:''}]}]}
 }
 export function typeofController(arrg:Arrgs, typeofValue:ArrgTypeof):Arrgs{
 return {...arrg,typeof:typeofValue}
