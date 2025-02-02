@@ -1,0 +1,17 @@
+import type { ArrgProps, ArrgTypeof } from "../../types"
+import type { MapArrgs, mapMethod } from "../types"
+import { deleteArrgController, typeofController, updateArrgController, updateArrgOtherConroller } from "./controller"
+      
+export function arrgActionsHandler(arrgProps:ArrgProps,mapArrgument:MapArrgs,mapMethod:mapMethod){
+    const {methodIndex}=arrgProps
+   const updateArrg=(type:string)=>{
+    mapArrgument(arrgProps,(arrg)=>updateArrgController(arrg,type),(arrg,_,targetArrg)=>updateArrgOtherConroller(arrg,type,targetArrg))
+}
+const setTypeOf=(value:ArrgTypeof)=>{
+  mapArrgument(arrgProps,(arrg)=>typeofController(arrg,value))
+ }
+   const deleteArrg=()=>{
+        mapMethod({methodIndex},deleteArrgController)
+    }
+    return {updateArrg,deleteArrg,setTypeOf}
+}

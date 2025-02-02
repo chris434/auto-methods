@@ -1,6 +1,6 @@
-import type { Methods } from "../types"
+import type { Methods } from "../../types"
 
-   export function replaceMethodController(name:string,method:Methods):Methods{
+export function replaceMethodController(name:string,method:Methods):Methods{
     return {...method,name}
     }
   export function addNewArrgConroller(method:Methods,singleTypes:string[]):Methods{

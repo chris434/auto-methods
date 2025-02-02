@@ -1,6 +1,6 @@
-import type { Arrgs, ArrgTypeof, Methods } from "../types"
-import { filter } from "../helpers/filter/filter"
-import{ deleteController } from "./delete"
+import type { Arrgs, ArrgTypeof, Methods } from "../../types"
+import { filter } from "../../helpers/filter/filter"
+import{ deleteController } from "../../controllers/delete"
 
 export function updateArrgController(arrg:Arrgs,type:string):Arrgs{
 if(arrg.type) return {...arrg,type}
