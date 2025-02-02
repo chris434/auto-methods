@@ -85,4 +85,4 @@ T extends 'arrgs'?Arrgs:
 T extends 'statement'?Statement:
 Condition
 
-export type DataCb<T>=(value:T,i:number)=>T
+export type DataCb<T>=(value:T,i:number,targetValue?:T)=>T

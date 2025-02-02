@@ -17,13 +17,14 @@ class ArrayData{
         map(this.data,this.data.methods,'methods',targetIndex,(method,i)=>cb(method,i),{setCb:(value)=> {this.data.methods=value}})
     }
     #mapArrgument=({methodIndex,arrgIndex}:ArrgProps,isCb:DataCb<Arrgs>,isNotCb?:DataCb<Arrgs>)=>{
+     const targetArrg=this.data.methods[methodIndex].arrgs[arrgIndex]
      return this.#mapMethod(methodIndex,(method)=>{
-        return map(method,method.arrgs,'arrgs',arrgIndex,(arrg,i,isNotEqual)=>!isNotEqual?isCb(arrg,i):isNotCb?isNotCb(arrg,i):arrg,{notEqaul:true})
+        return map(method,method.arrgs,'arrgs',arrgIndex,(arrg,i,isNotEqual)=>isNotEqual&&isNotCb?isNotCb(arrg,i,targetArrg):isCb(arrg,i),{notEqaul:true})
       })
     }
 
     #mapStatement=({methodIndex,arrgIndex,statementIndex}:Omit<StatementProps,'type'> ,isCb:DataCb<Statement>)=>{
-   return this.#mapArrgument({methodIndex,arrgIndex},(arrg)=> {
+   return this.#mapArrgument({methodIndex,arrgIndex},(arrg,i)=> {
        return map(arrg,arrg.statements,'statements',statementIndex,(statement,i)=>isCb(statement,i))
     })
     }
@@ -48,7 +49,7 @@ class ArrayData{
     arrgActions=(arrgProps:ArrgProps)=>{
         const {methodIndex}=arrgProps
        const updateArrg=(type:string)=>{
-        this.#mapArrgument(arrgProps,(arrg)=>updateArrgController(arrg,type),(arrg)=>updateArrgOtherConroller(arrg,type))
+        this.#mapArrgument(arrgProps,(arrg)=>updateArrgController(arrg,type),(arrg,_,targetArrg)=>updateArrgOtherConroller(arrg,type,targetArrg))
     }
     const setTypeOf=(value:ArrgTypeof)=>{
       this.#mapArrgument(arrgProps,(arrg)=>typeofController(arrg,value))

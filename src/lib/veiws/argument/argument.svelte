@@ -14,7 +14,7 @@ const methodProps:MethodProps=$props()
 {@const arrgProps={...methodProps,arrgIndex}}
 {@const {updateArrg,deleteArrg,setTypeOf}=arrayData.arrgActions(arrgProps)}
 <div class="flex space-x-3 items-center">
-    <Select name="argument" value={arrg.type} valueFallback="Select argument" label="argument" data={arrg.types} onchange={(type)=>updateArrg(type)} />
+	<Select name="argument" value={arrg.type} valueFallback="Select argument" label="argument" data={arrg.types} onchange={(type)=>updateArrg(type)} />
     <Button class="mt-3" onclick={deleteArrg}>Delete</Button>
 </div>
 {#if arrg.type}

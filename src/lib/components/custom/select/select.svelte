@@ -2,6 +2,7 @@
 	import type { Props } from "./types";
 	import LabelErrorWrapper from "../labelErrorWrapper/labelErrorWrapper.svelte";
  import * as Select from "$lib/components/ui/select/index.js";
+	import { Target } from "svelte-radix";
 
 let {errorMessage='',label,labelId=label,data,selectItem,value=$bindable(),valueFallback,name,onchange}:Props<T>=$props()
 
