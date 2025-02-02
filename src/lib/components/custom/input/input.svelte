@@ -4,7 +4,7 @@
     import Textarea from "$lib/components/ui/textarea/textarea.svelte";
 	import type { Props } from "./types";
 	import Button from "$lib/components/ui/button/button.svelte";
-let {label,labelId=label,inputType,errorMessage,dataType="text",accept,value=$bindable(),onchangeInput,onchangeText,onremove}:Props=$props()
+let {label,labelId=label,inputType,errorMessage,dataType="text",accept,readonly,value=$bindable(),onchangeInput,onchangeText,onremove}:Props=$props()
 </script>
 
 <div>
@@ -12,7 +12,7 @@ let {label,labelId=label,inputType,errorMessage,dataType="text",accept,value=$bi
     {#if inputType==='input'}
     {@const showRemoveButton=dataType==='file'&&value}
     <div class="flex w-[20rem] gap-3">
-        <Input {accept} class={showRemoveButton?'w-[14.25rem]':'w-[20rem]'} bind:value id={labelId} type={dataType} onchange={onchangeInput}/>
+        <Input {readonly} {accept} class={showRemoveButton?'w-[14.25rem]':'w-[20rem]'} bind:value id={labelId} type={dataType} onchange={onchangeInput}/>
         {#if showRemoveButton}
         <Button onclick={()=> {
             value=''

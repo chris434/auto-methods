@@ -9,6 +9,7 @@ export type Props={
     errorMessage:string
     inputType:'input'|'textarea'
     accept?:string
+    readonly?:boolean
     onchangeInput?:ChangeEventHandler<HTMLInputElement>
     onchangeText?:ChangeEventHandler<HTMLTextAreaElement>
     onremove?:()=>void
