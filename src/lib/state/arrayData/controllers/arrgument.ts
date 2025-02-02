@@ -1,5 +1,6 @@
-import { Table } from "svelte-radix"
 import type { Arrgs, ArrgTypeof, Methods } from "../types"
+import { filter } from "../helpers/filter/filter"
+import{ deleteController } from "./delete"
 
 export function updateArrgController(arrg:Arrgs,type:string):Arrgs{
 if(arrg.type) return {...arrg,type}
@@ -16,20 +17,15 @@ export function updateArrgOtherConroller(arrg:Arrgs,type:string,targetArrg:Arrgs
         const types=targetType!==type&&targetArrg?.type?arrg.types.map(thisType=>{
             if(thisType===type&&targetType) return targetType
             return thisType
-        }):arrg.types.filter(thisType=>{
-            return thisType!==type
-        })
+        }):filter(arrg.types,{arrgType:{targetValue:type}})
     return {...arrg,types}   
 }
-export function deleteArrgController(method:Methods,arrgIndex:number){
+export function deleteArrgController(method:Methods,arrgIndex:number):Methods{
 let type=''
-const filteredArrgs=method.arrgs.filter((arrg,index)=>{
-    type=index===arrgIndex?arrg.type:type
-        return index!==arrgIndex
-    })
-    const mappedArrgs=filteredArrgs.map(arrg=>{
-        return {...arrg,types:[...arrg.types,type]}
-    })
-            
-return {...method, arrgs:mappedArrgs}
+return deleteController(method, method.arrgs,arrgIndex,'arrgs',{
+itemCb:(arrg,index)=> type=index===arrgIndex?arrg.type:type,
+afterCb:(filteredArrgs)=>filteredArrgs.map(arrg=>{
+    return {...arrg,types:[...arrg.types,type]}
+})
+ })
 }
