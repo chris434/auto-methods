@@ -45,7 +45,7 @@ class ArrayData{
         return satementActionHandler(statementProps,this.#mapStatement,this.#mapArrgument)
     }
      conditionActions=(conditionProps:ConditionProps)=>{
-        return conditionActionHandler(conditionProps,this.#mapCondition)
+        return conditionActionHandler(conditionProps,this.#mapCondition,this.#mapStatement)
      }
 } 
 export let arrayData=new ArrayData()

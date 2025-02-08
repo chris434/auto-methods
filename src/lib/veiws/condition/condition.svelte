@@ -12,7 +12,8 @@
     const {type}=statementProps
     const objectTypes =arrayData.data.inputValue.types.objectTypes
     const objectKeys = Object.keys(objectTypes)
-    
+    const {conditionActions}=arrayData
+
     const logicalText='Logical'
     const objectKeyText='Object key'
     const valueTypeText='Value type'
@@ -22,6 +23,7 @@
 
  {#snippet condition(condition:Condition, conditionIndex:number)}
     {@const {updateConditionHandler}=conditionHelper({...statementProps,conditionIndex})}
+    {@const {deleteCondition}=conditionActions({...statementProps,conditionIndex})}
     {@const logicale=condition.logical}
     {@const valueType=condition.valueType}
     {@const oporator=condition.oparator}
@@ -52,7 +54,7 @@
                 <Input errorMessage="" value={conditionValue} label={conditionText} inputType="input" dataType={condition.valueType==='string'?'text':'number'} onchangeInput={e=>updateConditionHandler(e.currentTarget.value,'conditionValue')}/>
                 {/if}
                 {/if}
-            <Button class="mt-3">delete</Button>
+            <Button onclick={deleteCondition} class="mt-3" >delete</Button>
         </div>
     </section>
     {/snippet}
