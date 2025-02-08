@@ -1,6 +1,6 @@
 import type { ArrgProps, ArrgTypeof } from "../../types"
 import type { MapArrgs, mapMethod } from "../types"
-import { deleteArrgController, typeofController, updateArrgController, updateArrgOtherConroller } from "./controller"
+import { addStatementController, deleteArrgController, typeofController, updateArrgController, updateArrgOtherConroller } from "./controller"
       
 export function arrgActionsHandler(arrgProps:ArrgProps,mapArrgument:MapArrgs,mapMethod:mapMethod){
     const {methodIndex}=arrgProps
@@ -10,8 +10,11 @@ export function arrgActionsHandler(arrgProps:ArrgProps,mapArrgument:MapArrgs,map
 const setTypeOf=(value:ArrgTypeof)=>{
   mapArrgument(arrgProps,(arrg)=>typeofController(arrg,value))
  }
+ const addStatement=(type:string)=>{
+  mapArrgument(arrgProps,(arrg)=>addStatementController(arrg,type))
+ }
    const deleteArrg=()=>{
         mapMethod({methodIndex},deleteArrgController)
     }
-    return {updateArrg,deleteArrg,setTypeOf}
+    return {updateArrg,addStatement,deleteArrg,setTypeOf}
 }

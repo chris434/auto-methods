@@ -10,6 +10,10 @@ export function typeofController(arrg:Arrgs, typeofValue:ArrgTypeof):Arrgs{
 return {...arrg,typeof:typeofValue}
 }
 
+export function addStatementController(arrg:Arrgs,type:string):Arrgs{
+return {...arrg,statements:[...arrg.statements,{statementType:"if",conditions:[ {oparator:"",conditionValue:"",selectedObjectKey:'',logical:'',valueType:type!=='object'?type:''}]}]}
+}
+
 
 export function updateArrgOtherConroller(arrg:Arrgs,type:string,targetArrg:Arrgs|undefined):Arrgs{
     const targetType=targetArrg?.type
