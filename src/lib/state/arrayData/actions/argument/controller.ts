@@ -3,8 +3,7 @@ import { filter } from "../../helpers/filter/filter"
 import{ deleteController } from "../../controllers/delete"
 
 export function updateArrgController(arrg:Arrgs,type:string):Arrgs{
-if(arrg.type) return {...arrg,type}
-  return {...arrg,type,statements:[...arrg.statements,{statementType:"if",conditions:[ {oparator:"",conditionValue:"",selectedObjectKey:'',logical:'',valueType:type!=='object'?type:''}]}]}
+  return {...arrg,type,statements:[{statementType:"if",conditions:[ {oparator:"",conditionValue:"",selectedObjectKey:'',logical:'',valueType:type!=='object'?type:''}]}]}
 }
 export function typeofController(arrg:Arrgs, typeofValue:ArrgTypeof):Arrgs{
 return {...arrg,typeof:typeofValue}

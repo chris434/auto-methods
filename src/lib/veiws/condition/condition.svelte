@@ -9,7 +9,7 @@
 	import { conditionHelper } from "./helpers/conditionHelper.svelte";
 
     let statementProps:StatementProps=$props()
-    const {type}=statementProps
+    const {type}=$derived(statementProps)
     const objectTypes =arrayData.data.inputValue.types.objectTypes
     const objectKeys = Object.keys(objectTypes)
     const {conditionActions}=arrayData
