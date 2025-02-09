@@ -10,8 +10,8 @@
 
     let statementProps:StatementProps=$props()
     const {type}=$derived(statementProps)
-    const objectTypes =arrayData.data.inputValue.types.objectTypes
-    const objectKeys = Object.keys(objectTypes)
+    const objectTypes =$derived(arrayData.data.inputValue.types.objectTypes)
+    const objectKeys = ()=> Object.keys(objectTypes)
     const {conditionActions}=arrayData
 
     const logicalText='Logical'
@@ -38,7 +38,7 @@
         <div class="flex space-x-3 items-center">
             <div class="flex pl-3 pr-3 items-center space-x-3 ">
                 {#if type==='object' }
-                <Select name={objectKeyText} value={selectedObjectKey} valueFallback="Select {objectKeyText}" label={objectKeyText} data={objectKeys} onchange={value=>updateConditionHandler(value,'selectedObjectKey')}/>
+                <Select name={objectKeyText} value={selectedObjectKey} valueFallback="Select {objectKeyText}" label={objectKeyText} data={objectKeys()} onchange={value=>updateConditionHandler(value,'selectedObjectKey')}/>
                     {#if selectedObjectKey}
                     <Select name={valueTypeText} value={valueType} valueFallback="Select {valueTypeText}" label={valueTypeText} data={objectTypes[selectedObjectKey].types} onchange={value=>updateConditionHandler(value,'valueType')} />
                    {/if}
