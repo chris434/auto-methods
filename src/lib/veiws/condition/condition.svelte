@@ -5,7 +5,7 @@
 	import Each from "$lib/layouts/each/each.svelte";
 	import { arrayData} from "$lib/state/arrayData/arrayData.svelte";
 	import type { StatementProps,Condition } from "$lib/state/arrayData/types";
-	import { LOGICAL, OPORATORS } from "./data";
+	import { LOGICAL, OPORATORS,BOOLEAN_VALUE,NULL_VALUE } from "./data";
 	import { conditionHelper } from "./helpers/conditionHelper.svelte";
 
     let statementProps:StatementProps=$props()
@@ -48,10 +48,12 @@
         </div>
         <div class="flex items-center space-x-3">
             {#if (type!=='object'||condition.valueType!=='object')&&condition.valueType}
-            <Select name={oporatorTypeText} value={oporator} valueFallback="Select {oporatorTypeText}" label={oporatorTypeText} data={OPORATORS} selectItem={oporator => {return oporator}} onchange={value=>updateConditionHandler(value,'oparator')}/>
+            <Select name={oporatorTypeText} value={oporator} valueFallback="Select {oporatorTypeText}" label={oporatorTypeText} data={OPORATORS} onchange={value=>updateConditionHandler(value,'oparator')}/>
            
                 {#if condition.valueType==='string'|| condition.valueType==='number'}
                 <Input errorMessage="" value={conditionValue} label={conditionText} inputType="input" dataType={condition.valueType==='string'?'text':'number'} onchangeInput={e=>updateConditionHandler(e.currentTarget.value,'conditionValue')}/>
+                {:else if type==='boolean'||type==='null'} 
+                <Select name={valueTypeText} value={conditionValue} valueFallback="Select {valueTypeText}" label={conditionText} data={type==='boolean'?BOOLEAN_VALUE:NULL_VALUE}  onchange={value=>updateConditionHandler(value,'conditionValue')}/>   
                 {/if}
                 {/if}
             <Button onclick={deleteCondition} class="mt-3" >delete</Button>
